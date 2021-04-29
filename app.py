@@ -7,20 +7,23 @@ import cv2
 import random
 
 from open_cv import run_open_cv
+from SSD import run_SSD
+from Yolo import run_Yolo
 
 def main():
     
     st.title('OpenCV and Object Detection')
     # 사이드바 메뉴
-    menu = ['Home','OpenCV']
+    menu = ['Home','OpenCV','Semantic Segmentation', 'SSD', 'Yolo']
     choice = st.sidebar.selectbox("Menu",menu)
 
     if choice =='Home':
         st.write('이 앱은 스트림릿과 연동하여 내 이미지 또는 동영상을 업로드 하여 OpenCv를 이용해 이미지를 처리하고, Object Detection의 간단한 설명과 사용 사례를 보여주는 앱입니다.')
         st.write('왼쪽의 사이드바에서 선택하세요.')
-        model = st.sidebar.radio('Explanation', ('OpenCV','Semantic Segmentation','Object Detection Summary','Object Detection Model'))
+        model = st.sidebar.radio('Explanation', ('OpenCV','SDC','Semantic Segmentation','Object Detection Summary','Object Detection Model'))
 
         if model == 'OpenCV' :
+            st.write('Semantic Segmentation, SSD 등 직접 실습해 본 모델은 사이드바 메뉴에서 결과를 볼 수 있다.')
             st.subheader('OpenCV')
             st.write('영상 관련 라이브러리로서 사실상 표준의 지위를 가지고 있다. 조금이라도 영상처리가 들어간다면 필수적으로 사용하게 되는 라이브러리. OpenCV 이전에는 MIL 등 상업용 라이브러리를 많이 사용했으나 OpenCV 이후로는 웬만큼 특수한 상황이 아니면 OpenCV만으로도 원하는 영상 처리가 가능하다. 기능이 방대하기 때문에 OpenCV에 있는 것만 다 쓸 줄 알아도 영상처리/머신러닝의 고수 반열에 속하게 된다. 조금 써봤다는 사람은 많지만 다 써봤다는 사람은 별로 없으며, 최신 버전의 라이브러리를 바짝 따라가는 사람은 영상 전공자 중에서도 드물다.')
             st.subheader('컴퓨터비전(Computer Vision) 이란?')
@@ -34,6 +37,26 @@ def main():
             st.text('\n')
             st.text('\n')
             st.text('OpenCV의 이미지 처리방식은 사이드바 메뉴에서 선택하세요.')
+
+        if model == 'SDC' :
+            st.subheader('SDC(Self-Driving Cars')
+            SDC = cv2.imread('data/images/1_vai9P6E5UHrhPmxzFkwWbQ.jpeg')
+            SDC = cv2.cvtColor(SDC, cv2.COLOR_BGR2RGB)
+            st.image(SDC) 
+            st.write('무인 자동차는 자율주행 자동차(SDC), 또는 로봇 자동차로 알려져 있다. 자율 주행 차의 목적은 운전자 없이 자동으로 운전하는 것이다.')
+            SDC2 = cv2.imread('data/images/SDC2.png')
+            SDC2 = cv2.cvtColor(SDC2, cv2.COLOR_BGR2RGB)
+            st.image(SDC2)
+            st.write('Computer Vision은 SDC의 눈으로 간주 될 수 있으며 주변 세계가 어떻게 생겼는지 파악하는데 도움이 된다.') 
+            st.write('센서 융합은 RADAR, LIDAR 및 LASER와 같은 다양한 센서의 데이터를 통합하여 주변 환경을 더 깊이 이해하는 방법이다.')
+            st.subheader('Benefits of SDCs')
+            st.write('Greater safety on roads : 자율 주행의 가장 중요한 결과는 안전하지 않은 운전, 즉 졸음운전, 음주운전 등으로 인한 피해를 줄이는 것이다. 또한, 안전벨트를 안한 사용자, 고속주행차 등에 대한 위험도 줄일 수 있다.')
+            st.write('Greater indenpendence for those with mobility problems : 완전 자동화는 일반적으로 우리에게 많은 개인적인 자유를 제공한다. 도움이 필요한 사람들, 즉 거동이 불편한 사람들은 더 자립 할 것이다.')
+            st.write('Reduced congestion : SDC를 사용하면 교통 정체의 여러 원인을 해결 할 수 있다. 사고가 적다는 것은 고속도로에서 더 적은 백업을 의미한다. 차량사이의 보다 효율적이고 안전한 거리와 정지등은 도로의 전반적인 혼잡을 감소시킬 것이다.')
+            st.write('Reduced environmental impact : 대부분의 자율 주행차는 완전 전기식으로 설계 되었기 때문에 자율 주행 차는 연료 소비와 탄소 배출령을 줄여 불필요한 엔진 공회전으로 인한 온실 가스 배출량을 줄이고 연료 소비량을 줄일 수 있다.')
+            st.subheader('Deep learning and computer vision for SDCs')
+            st.write('자율주행차에 딥러닝과 컴퓨터비전을 이용 할 수 있는 종류에는 Lane detection, Road sign recognition, Pedestrian detection, Traffic light detection, Car detection, Face recognition, Obstacle detection, Cehicle action recognition등이 있다.')
+
 
         if model == 'Semantic Segmentation' :
             st.subheader('Semantic Segmentation')
@@ -110,9 +133,17 @@ def main():
                 st.image(RN)
                 st.write('RetinaNet은 모델 학습시 계산하는 손실 함수(loss function)에 변화를 주어 기존 One-Stage Detector들이 지닌 낮은 성능을 개선했다. One-Stage Detector는 많게는 십만개 까지의 후보군 제시를 통해 학습을 진행한다. 그 중 실제 객체인 것은 일반적으로 10개 이내 이고, 다수의 후보군이 background 클래스로 잡힌다. 상대적으로 분류하기 쉬운 background 후보군들에 대한 loss값을 줄여줌으로써 분류하기 어려운 실제 객체들의 loss 비중을 높이고, 그에 따라 실제 객체들에 대한 학습에 집중하게 한다. RetinaNet은 속도 빠르면서 Two-Stage Detector와 유사한 성능을 보입니다.')
 
-
     elif choice == 'OpenCV' :
         run_open_cv()    
+
+    # elif choice == 'Semantic Segmentation' :
+    #     run_Semantic_Segmentation()
+
+    elif choice == 'SSD' :
+        run_SSD()
+
+    elif choice == 'Yolo' :
+        run_Yolo()
 
 if __name__ == '__main__':
     main()
