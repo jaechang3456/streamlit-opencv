@@ -7,6 +7,7 @@ import cv2
 import random
 
 from open_cv import run_open_cv
+from Semantic_Segmentation import run_Semantic_Segmentation
 from SSD import run_SSD
 from Yolo import run_Yolo
 
@@ -136,8 +137,8 @@ def main():
     elif choice == 'OpenCV' :
         run_open_cv()    
 
-    # elif choice == 'Semantic Segmentation' :
-    #     run_Semantic_Segmentation()
+    elif choice == 'Semantic Segmentation' :
+        run_Semantic_Segmentation()
 
     elif choice == 'SSD' :
         run_SSD()
