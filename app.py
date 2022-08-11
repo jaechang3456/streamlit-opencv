@@ -13,7 +13,7 @@ from Yolo import run_Yolo
 
 def main():
     
-    st.set_page_config(page_title="OpenCV and ObjectDetection")
+    st.set_page_config(page_title="OpenCV and ObjectDetection", page_icon="./data/images/LJC.jpg")
 
     st.title('OpenCV and Object Detection')
     # 사이드바 메뉴
