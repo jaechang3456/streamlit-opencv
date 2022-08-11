@@ -13,6 +13,8 @@ from Yolo import run_Yolo
 
 def main():
     
+    st.set_page_config(page_title="OpenCV and ObjectDetection")
+
     st.title('OpenCV and Object Detection')
     # 사이드바 메뉴
     menu = ['Home','OpenCV','Semantic Segmentation', 'SSD', 'Yolo']
